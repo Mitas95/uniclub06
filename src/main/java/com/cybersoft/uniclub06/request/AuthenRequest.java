@@ -10,5 +10,18 @@ package com.cybersoft.uniclub06.request;
 //}
 
 
-public record AuthenRequest(String email, String password) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+public record AuthenRequest(
+        //Regex - tạo rule cho validation
+        @NotNull(message = "Email không được phép null")
+        @NotEmpty(message = "Email không được phép rỗng")
+        @Email(message = "Không phải định dạng email")
+        String email,
+        @NotNull(message = "password không được phép null")
+        @NotEmpty(message = "password không được phép rỗng")
+        String password
+) {
 }
