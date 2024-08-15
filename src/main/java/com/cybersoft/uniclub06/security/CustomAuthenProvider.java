@@ -33,12 +33,18 @@ public class CustomAuthenProvider implements AuthenticationProvider {
 
         if (roleDTOS.size() > 0) {
 
-            List<GrantedAuthority> authorityList = new ArrayList<>(); //Dùng Steam API
+//            List<GrantedAuthority> authorityList = new ArrayList<>(); //Dùng Steam API
+//            roleDTOS.forEach(roleDTO -> {
+//                SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(roleDTO.getName());
+//                authorityList.add(simpleGrantedAuthority);
+//            });
 
-            roleDTOS.forEach(roleDTO -> {
-                SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(roleDTO.getName());
-                authorityList.add(simpleGrantedAuthority);
-            });
+            // Stream API - java 8
+            //map(): cho phép biến đổi kiểu dữ liệu gốc thành kiểu dữ liệu khác trong quá trình duyệt mảng / đối tượng
+
+            List<SimpleGrantedAuthority> authorityList = roleDTOS.stream()
+                    .map(item -> new SimpleGrantedAuthority(item.getName()))
+                    .toList();
 
             return new UsernamePasswordAuthenticationToken("", "", authorityList);
 
