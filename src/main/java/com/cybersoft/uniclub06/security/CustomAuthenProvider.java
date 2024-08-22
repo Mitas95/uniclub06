@@ -2,6 +2,7 @@ package com.cybersoft.uniclub06.security;
 
 
 import com.cybersoft.uniclub06.dto.RoleDTO;
+import com.cybersoft.uniclub06.exception.AuthenException;
 import com.cybersoft.uniclub06.request.AuthenRequest;
 import com.cybersoft.uniclub06.service.AuthenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class CustomAuthenProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken("", "", authorityList);
 
         } else {
-            return null;
+            throw new AuthenException("Đăng nhập thất bại");
         }
 
     }
